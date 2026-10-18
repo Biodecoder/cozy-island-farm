@@ -1,0 +1,28 @@
+{
+  "task_id": "94b7a549-35c2-4c23-9e85-8b47aebc7942",
+  "type": "text_to_model",
+  "status": "success",
+  "input": {
+    "pbr": true,
+    "prompt": "cozy stylized red wooden farm barn with dark grey gambrel roof, white trim, white X-braced double doors, and small roof cupola, cute 3D farm game building",
+    "texture": true,
+    "export_uv": true,
+    "face_limit": 12000,
+    "model_version": "P1-20260311",
+    "texture_alignment": "geometry"
+  },
+  "output_fields": [
+    "model_url",
+    "rendered_image_url",
+    "generated_image_url"
+  ],
+  "credits_consumed": 40,
+  "created_at": "2026-10-18T12:34:33.984408Z",
+  "completed_at": "2026-10-18T12:35:39.494916Z",
+  "files": [
+    "model.glb",
+    "rendered_image.webp",
+    "generated_image.jpeg",
+    "preview.png"
+  ]
+}

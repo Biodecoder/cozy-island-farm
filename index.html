@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cozy Island Farm — Tripo 3D + Unity 6 / Three.js Diorama</title>
+  <style>
+    * { box-sizing: border-box; user-select: none; -webkit-user-select: none; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #8adbe8;
+      font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+    }
+    #game-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      display: block;
+    }
+
+    /* Wood-framed parchment plaque styling matching @Mnilax HUD */
+    .wood-plaque {
+      background: linear-gradient(180deg, #f8eed6 0%, #ecdab5 100%);
+      border: 4px solid #784825;
+      border-radius: 10px;
+      box-shadow:
+        inset 0 0 0 2px #c49862,
+        0 4px 10px rgba(42, 22, 8, 0.35);
+      color: #4b2b13;
+      font-weight: 800;
+    }
+
+    /* Top-Left Coin Plaque */
+    #coin-plaque {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      height: 54px;
+      min-width: 196px;
+      padding: 0 18px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-size: 24px;
+      letter-spacing: 0.4px;
+      z-index: 20;
+      transition: transform 0.18s ease;
+    }
+    #coin-plaque.pulse {
+      transform: scale(1.09);
+    }
+    .coin-emblem {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 32% 30%, #fff394 0%, #f5be2b 55%, #c98212 100%);
+      border: 2.5px solid #8a4f08;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #7c4305;
+      font-weight: 900;
+      font-size: 19px;
+      flex-shrink: 0;
+    }
+
+    /* Top-Right Calendar & Season Plaque */
+    #season-plaque {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      height: 54px;
+      padding: 0 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 21px;
+      z-index: 20;
+      cursor: pointer;
+    }
+    #season-icon {
+      font-size: 22px;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.18));
+    }
+
+    /* Bottom-Left 6-Slot Wood Hotbar */
+    #hotbar-container {
+      position: fixed;
+      left: 18px;
+      bottom: 18px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 20;
+    }
+    .hotbar-slot {
+      width: 58px;
+      height: 58px;
+      border-radius: 8px;
+      background: linear-gradient(180deg, #ecd8b4 0%, #dfc496 100%);
+      border: 2.5px solid #b58c58;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
+    }
+    .hotbar-slot.active {
+      border-color: #f3b229;
+      background: linear-gradient(180deg, #fff4d2 0%, #f5de9e 100%);
+      box-shadow: 0 0 0 2px #8a4f08, 0 3px 8px rgba(0,0,0,0.25);
+      transform: translateY(-2px);
+    }
+    .slot-emoji {
+      font-size: 27px;
+      line-height: 1;
+      filter: drop-shadow(0 2px 2px rgba(0,0,0,0.22));
+    }
+    .slot-badge {
+      position: absolute;
+      right: -3px;
+      bottom: -3px;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 5px;
+      border-radius: 10px;
+      background: #3a2414;
+      border: 1.5px solid #c99d66;
+      color: #fff8e8;
+      font-size: 12px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Bottom-Right Circular Minimap & Companion/Autopilot Button */
+    #minimap-wrap {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      z-index: 20;
+    }
+    #autopilot-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      title: "Toggle Autopilot / Time Mode";
+    }
+    #autopilot-btn.active {
+      border-color: #d98b19;
+      background: linear-gradient(180deg, #ffe7a8 0%, #ecc062 100%);
+    }
+    #minimap-circle {
+      width: 158px;
+      height: 158px;
+      border-radius: 50%;
+      border: 5px solid #8a562d;
+      box-shadow:
+        inset 0 0 0 2px #d2a673,
+        0 5px 14px rgba(32, 16, 4, 0.42);
+      overflow: hidden;
+      position: relative;
+      background: #84b464;
+    }
+    #minimap-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Floating coin / harvest popups */
+    #fx-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 25;
+    }
+    .floating-toast {
+      position: absolute;
+      font-weight: 900;
+      font-size: 18px;
+      color: #fff7cf;
+      text-shadow: 0 2px 4px rgba(45, 22, 4, 0.85);
+      animation: floatUp 1.15s ease-out forwards;
+    }
+    @keyframes floatUp {
+      0% { opacity: 1; transform: translate(-50%, 0) scale(0.85); }
+      25% { opacity: 1; transform: translate(-50%, -14px) scale(1.08); }
+      100% { opacity: 0; transform: translate(-50%, -44px) scale(0.95); }
+    }
+
+    /* Subtle studio controls pill tucked below top-left coin plaque */
+    #studio-pill {
+      position: fixed;
+      top: 78px;
+      left: 16px;
+      padding: 4px 10px;
+      font-size: 11px;
+      border-radius: 999px;
+      background: rgba(58, 34, 16, 0.78);
+      color: #f9ebd2;
+      border: 1.5px solid rgba(212, 168, 112, 0.65);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      z-index: 20;
+      backdrop-filter: blur(4px);
+    }
+    #studio-pill button {
+      background: #d88b28;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 3px 8px;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+  </style>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./node_modules/three/build/three.module.js",
+        "three/addons/": "./node_modules/three/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <canvas id="game-canvas"></canvas>
+
+  <!-- Top-Left Coin Plaque -->
+  <div id="coin-plaque" class="wood-plaque">
+    <div class="coin-emblem">¥</div>
+    <span id="coin-value">1,240</span>
+  </div>
+
+  <!-- Subtle Studio Bar for Time-of-Day / Season / Autopilot inspection -->
+  <div id="studio-pill">
+    <span id="tripo-status">Tripo 3D Assets: Loading…</span>
+    <button id="btn-lighting">Lighting: Auto Cycle</button>
+    <button id="btn-season">Next Season</button>
+  </div>
+
+  <!-- Top-Right Day & Season Plaque -->
+  <div id="season-plaque" class="wood-plaque" title="Click to advance Day / Season">
+    <span id="season-text">Day 12 · Spring</span>
+    <span id="season-icon">☀️</span>
+  </div>
+
+  <!-- Bottom-Left 6-Slot Wooden Hotbar -->
+  <div id="hotbar-container" class="wood-plaque">
+    <div class="hotbar-slot active" data-slot="0" title="Watering Can [1]">
+      <span class="slot-emoji">🚿</span>
+      <span class="slot-badge" id="badge-0">1</span>
+    </div>
+    <div class="hotbar-slot" data-slot="1" title="Harvested Pumpkins [2]">
+      <span class="slot-emoji">🎃</span>
+      <span class="slot-badge" id="badge-1">4</span>
+    </div>
+    <div class="hotbar-slot" data-slot="2" title="Pumpkin Seeds [3]">
+      <span class="slot-emoji">🎃</span>
+      <span class="slot-badge" id="badge-2">3</span>
+    </div>
+    <div class="hotbar-slot" data-slot="3" title="Tomato Vines [4]">
+      <span class="slot-emoji" id="emoji-3">🍅</span>
+      <span class="slot-badge" id="badge-3" style="display:none">0</span>
+    </div>
+    <div class="hotbar-slot" data-slot="4" title="Garden Hoe [5]">
+      <span class="slot-emoji" id="emoji-4">⛏️</span>
+      <span class="slot-badge" id="badge-4" style="display:none">1</span>
+    </div>
+    <div class="hotbar-slot" data-slot="5" title="Market Crate [6]">
+      <span class="slot-emoji" id="emoji-5">🧺</span>
+      <span class="slot-badge" id="badge-5" style="display:none">0</span>
+    </div>
+  </div>
+
+  <!-- Bottom-Right Circular Minimap & Autopilot Toggle -->
+  <div id="minimap-wrap">
+    <div id="autopilot-btn" class="wood-plaque active" title="Toggle Autopilot Farmer (AI)">👤</div>
+    <div id="minimap-circle">
+      <canvas id="minimap-canvas" width="158" height="158"></canvas>
+    </div>
+  </div>
+
+  <div id="fx-layer"></div>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+    import * as SkeletonUtils from 'three/addons/utils/SkeletonUtils.js';
+
+    // ─── Game State (mirrors CozyFarmState.cs in Unity 6) ─────────────────────
+    const SEASONS = ['Spring', 'Summer', 'Autumn', 'Winter'];
+    const state = {
+      coins: 1240,
+      day: 12,
+      seasonIndex: 0,
+      timeOfDay: 0.22, // 0.20 = sunny midday (frame_01), 0.62 = golden sunset (frame_05..14)
+      lightingMode: 'auto', // 'auto' | 'midday' | 'sunset' | 'dusk'
+      selectedSlot: 0,
+      autopilot: true,
+      inventory: {
+        wateringCan: 1,
+        pumpkins: 4,
+        pumpkinSeeds: 3,
+        tomatoes: 0
+      },
+      stats: {
+        planted: 5,
+        watered: 5,
+        harvested: 0,
+        sold: 0
+      },
+      loadedTripoModels: 0
+    };
+    window.__cozyFarmState = state;
+
+    // ─── Renderer, Scene & Isometric Diorama Camera ───────────────────────────
+    const canvas = document.getElementById('game-canvas');
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.08;
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x8be2ef);
+    scene.fog = new THREE.FogExp2(0x8be2ef, 0.012);
+
+    const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.5, 160);
+    const camFocus = new THREE.Vector3(0.4, 0.2, 0.2);
+    const camOffset = new THREE.Vector3(0.4, 16.0, 15.2);
+    camera.position.copy(camFocus).add(camOffset);
+    camera.lookAt(camFocus);
+
+    // ─── Lighting (Midday Sun -> Golden Sunset -> Warm Dusk Lanterns) ─────────
+    const hemiLight = new THREE.HemisphereLight(0xfff8e8, 0x628c44, 0.95);
+    scene.add(hemiLight);
+
+    const sunLight = new THREE.DirectionalLight(0xfff5dc, 1.95);
+    sunLight.position.set(-12, 19, 11);
+    sunLight.castShadow = true;
+    sunLight.shadow.mapSize.set(2048, 2048);
+    sunLight.shadow.camera.near = 2;
+    sunLight.shadow.camera.far = 55;
+    const d = 16;
+    sunLight.shadow.camera.left = -d;
+    sunLight.shadow.camera.right = d;
+    sunLight.shadow.camera.top = d;
+    sunLight.shadow.camera.bottom = -d;
+    sunLight.shadow.bias = -0.0005;
+    scene.add(sunLight);
+
+    // ─── Island Diorama World Geometry ────────────────────────────────────────
+    const worldGroup = new THREE.Group();
+    scene.add(worldGroup);
+
+    // Ocean water + shoreline foam ring
+    const oceanGeo = new THREE.PlaneGeometry(140, 140, 48, 48);
+    oceanGeo.rotateX(-Math.PI / 2);
+    const oceanMat = new THREE.MeshStandardMaterial({
+      color: 0x4ccbd6,
+      roughness: 0.25,
+      metalness: 0.08
+    });
+    const oceanMesh = new THREE.Mesh(oceanGeo, oceanMat);
+    oceanMesh.position.y = -0.46;
+    worldGroup.add(oceanMesh);
+
+    // Foam ring around the beach
+    const foamGeo = new THREE.CylinderGeometry(14.8, 15.2, 0.08, 64);
+    const foamMat = new THREE.MeshBasicMaterial({ color: 0xeffcff, transparent: true, opacity: 0.72 });
+    const foamMesh = new THREE.Mesh(foamGeo, foamMat);
+    foamMesh.position.set(0.4, -0.44, -0.4);
+    foamMesh.scale.set(1.18, 1, 0.92);
+    worldGroup.add(foamMesh);
+
+    // Sandy beach rim
+    const sandGeo = new THREE.CylinderGeometry(13.9, 14.6, 0.42, 64);
+    const sandMat = new THREE.MeshStandardMaterial({ color: 0xeac98b, roughness: 0.88 });
+    const sandMesh = new THREE.Mesh(sandGeo, sandMat);
+    sandMesh.position.set(0.4, -0.32, -0.4);
+    sandMesh.scale.set(1.18, 1, 0.92);
+    sandMesh.receiveShadow = true;
+    worldGroup.add(sandMesh);
+
+    // Lush green grass island top
+    const grassGeo = new THREE.CylinderGeometry(12.9, 13.5, 0.34, 64);
+    const grassMat = new THREE.MeshStandardMaterial({ color: 0x8cc63f, roughness: 0.85 });
+    const grassMesh = new THREE.Mesh(grassGeo, grassMat);
+    grassMesh.position.set(0.4, -0.15, -0.4);
+    grassMesh.scale.set(1.18, 1, 0.92);
+    grassMesh.receiveShadow = true;
+    worldGroup.add(grassMesh);
+
+    // Eastern coastal stream channel under the Arched Wooden Bridge (frame_14)
+    const streamGeo = new THREE.BoxGeometry(4.8, 0.22, 3.6);
+    const streamMesh = new THREE.Mesh(streamGeo, oceanMat);
+    streamMesh.position.set(8.8, -0.06, -0.2);
+    streamMesh.rotation.y = -0.28;
+    worldGroup.add(streamMesh);
+
+    // Cobblestone Market Plaza (East side matching @Mnilax frames)
+    const plazaGroup = new THREE.Group();
+    const plazaGeo = new THREE.BoxGeometry(7.6, 0.06, 5.4);
+    const plazaMat = new THREE.MeshStandardMaterial({ color: 0xb7aca0, roughness: 0.92 });
+    const plazaBase = new THREE.Mesh(plazaGeo, plazaMat);
+    plazaBase.position.set(5.8, 0.01, -2.2);
+    plazaBase.receiveShadow = true;
+    plazaGroup.add(plazaBase);
+
+    // Subtle cobblestone stones
+    const stoneGeo = new THREE.CylinderGeometry(0.28, 0.3, 0.07, 7);
+    const stoneMat1 = new THREE.MeshStandardMaterial({ color: 0xa3978b, roughness: 0.9 });
+    const stoneMat2 = new THREE.MeshStandardMaterial({ color: 0xc5bbb0, roughness: 0.9 });
+    for (let sx = 2.5; sx <= 9.0; sx += 0.68) {
+      for (let sz = -4.5; sz <= 0.1; sz += 0.68) {
+        const st = new THREE.Mesh(stoneGeo, ((Math.floor(sx * 3 + sz * 5)) % 2 === 0) ? stoneMat1 : stoneMat2);
+        st.position.set(sx + Math.sin(sz * 3) * 0.12, 0.015, sz + Math.cos(sx * 3) * 0.12);
+        st.scale.set(1.1, 1, 0.85);
+        st.receiveShadow = true;
+        plazaGroup.add(st);
+      }
+    }
+    worldGroup.add(plazaGroup);
+
+    // Wildflower dots across the grass
+    const flowerGeo = new THREE.SphereGeometry(0.07, 6, 6);
+    const flowerWhiteMat = new THREE.MeshBasicMaterial({ color: 0xfffdf2 });
+    const flowerYellowMat = new THREE.MeshBasicMaterial({ color: 0xffe066 });
+    const flowerPositions = [
+      [-6.2, 2.2], [-5.8, 3.1], [-5.5, 0.5], [-5.1, -1.8], [-4.8, 4.1],
+      [-3.5, 5.2], [-2.2, 5.4], [1.8, 5.1], [3.2, 4.9], [4.4, 4.6],
+      [-5.9, -4.5], [1.9, -5.2], [2.4, -5.4]
+    ];
+    for (const [fx, fz] of flowerPositions) {
+      for (let k = 0; k < 3; k++) {
+        const fl = new THREE.Mesh(flowerGeo, k === 0 ? flowerYellowMat : flowerWhiteMat);
+        fl.position.set(fx + (k - 1) * 0.22, 0.04, fz + ((k * 7) % 3 - 1) * 0.18);
+        worldGroup.add(fl);
+      }
+    }
+
+    // ─── Procedural / Tripo Fallback Helpers ──────────────────────────────────
+    function makeSproutMesh() {
+      const g = new THREE.Group();
+      const leafGeo = new THREE.SphereGeometry(0.13, 8, 6);
+      const leafMat = new THREE.MeshStandardMaterial({ color: 0x56c232, roughness: 0.65 });
+      for (let i = 0; i < 4; i++) {
+        const leaf = new THREE.Mesh(leafGeo, leafMat);
+        const ang = (i * Math.PI) / 2 + Math.PI / 4;
+        leaf.rotation.y = ang;
+        leaf.rotation.x = 0.35;
+        leaf.scale.set(0.65, 0.28, 1.35);
+        leaf.position.set(Math.sin(ang) * 0.12, 0.09, Math.cos(ang) * 0.12);
+        leaf.castShadow = true;
+        g.add(leaf);
+      }
+      return g;
+    }
+
+    function makeFallbackPumpkinMesh() {
+      const g = new THREE.Group();
+      const bodyMat = new THREE.MeshStandardMaterial({ color: 0xf2791a, roughness: 0.55 });
+      for (let i = 0; i < 6; i++) {
+        const lobe = new THREE.Mesh(new THREE.SphereGeometry(0.24, 10, 8), bodyMat);
+        const a = (i / 6) * Math.PI * 2;
+        lobe.position.set(Math.cos(a) * 0.07, 0.21, Math.sin(a) * 0.07);
+        lobe.scale.set(0.95, 0.88, 0.95);
+        lobe.castShadow = true;
+        g.add(lobe);
+      }
+      const stem = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.03, 0.05, 0.14, 6),
+        new THREE.MeshStandardMaterial({ color: 0x4b8b2b, roughness: 0.7 })
+      );
+      stem.position.set(0, 0.42, 0);
+      stem.rotation.z = 0.2;
+      g.add(stem);
+      return g;
+    }
+
+    function makeFallbackTomatoBushMesh() {
+      const g = new THREE.Group();
+      const leafMat = new THREE.MeshStandardMaterial({ color: 0x3b8f26, roughness: 0.75 });
+      const fruitMat = new THREE.MeshStandardMaterial({ color: 0xf46d1b, roughness: 0.4 });
+      const puffPositions = [[0, 0.32, 0, 0.28], [-0.15, 0.24, 0.1, 0.22], [0.16, 0.25, -0.08, 0.22], [0, 0.48, 0, 0.21]];
+      for (const [x, y, z, r] of puffPositions) {
+        const m = new THREE.Mesh(new THREE.DodecahedronGeometry(r, 1), leafMat);
+        m.position.set(x, y, z);
+        m.castShadow = true;
+        g.add(m);
+      }
+      const fruitOffsets = [[-0.18, 0.22, 0.16], [0.17, 0.28, 0.14], [0.05, 0.38, 0.18], [-0.12, 0.36, -0.14]];
+      for (const [fx, fy, fz] of fruitOffsets) {
+        const fr = new THREE.Mesh(new THREE.SphereGeometry(0.065, 8, 8), fruitMat);
+        fr.position.set(fx, fy, fz);
+        g.add(fr);
+      }
+      return g;
+    }
+
+    // ─── North Plot (Mature Tomato Vines & Orange Pumpkins, matching frame_01) ─
+    const northPlotGroup = new THREE.Group();
+    const northSoil = new THREE.Mesh(
+      new THREE.BoxGeometry(7.2, 0.10, 2.8),
+      new THREE.MeshStandardMaterial({ color: 0x5d361d, roughness: 0.95 })
+    );
+    northSoil.position.set(-1.3, 0.03, -3.1);
+    northSoil.receiveShadow = true;
+    northPlotGroup.add(northSoil);
+
+    const northPumpkins = [];
+    const northTomatoes = [];
+    for (let col = 0; col < 7; col++) {
+      const x = -4.0 + col * 0.90;
+      for (let r = 0; r < 2; r++) {
+        const zTom = -3.95 + r * 0.55;
+        const tom = makeFallbackTomatoBushMesh();
+        tom.position.set(x, 0.08, zTom);
+        northPlotGroup.add(tom);
+        northTomatoes.push(tom);
+
+        const zPmp = -2.65 + r * 0.58;
+        const pmp = makeFallbackPumpkinMesh();
+        pmp.position.set(x, 0.08, zPmp);
+        northPlotGroup.add(pmp);
+        northPumpkins.push(pmp);
+      }
+    }
+    worldGroup.add(northPlotGroup);
+
+    // ─── Central Interactive 7-Furrow Tilled Plot ─────────────────────────────
+    const centralPlotGroup = new THREE.Group();
+    const centralPad = new THREE.Mesh(
+      new THREE.BoxGeometry(8.2, 0.09, 5.6),
+      new THREE.MeshStandardMaterial({ color: 0x522e17, roughness: 0.96 })
+    );
+    centralPad.position.set(-0.6, 0.02, 1.5);
+    centralPad.receiveShadow = true;
+    centralPlotGroup.add(centralPad);
+
+    const cropSlots = [];
+    for (let col = 0; col < 7; col++) {
+      const x = -3.6 + col * 1.0;
+      // Raised rounded soil furrow ridge
+      const ridgeGeo = new THREE.CylinderGeometry(0.36, 0.42, 4.95, 12);
+      ridgeGeo.rotateX(Math.PI / 2);
+      const ridgeMat = new THREE.MeshStandardMaterial({ color: 0x6b3e21, roughness: 0.94 });
+      const ridge = new THREE.Mesh(ridgeGeo, ridgeMat);
+      ridge.position.set(x, 0.06, 1.5);
+      ridge.scale.set(1.0, 0.42, 1.0);
+      ridge.receiveShadow = true;
+      centralPlotGroup.add(ridge);
+
+      for (let row = 0; row < 6; row++) {
+        const z = -0.55 + row * 0.82;
+        const slotGroup = new THREE.Group();
+        slotGroup.position.set(x, 0.10, z);
+
+        const moundMat = new THREE.MeshStandardMaterial({ color: 0x6b3e21, roughness: 0.92 });
+        const mound = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.34, 0.06, 12), moundMat);
+        mound.receiveShadow = true;
+        slotGroup.add(mound);
+
+        const sprout = makeSproutMesh();
+        const bush = makeFallbackTomatoBushMesh();
+        bush.scale.setScalar(0.68);
+        const pumpkin = makeFallbackPumpkinMesh();
+        const tomato = makeFallbackTomatoBushMesh();
+
+        slotGroup.add(sprout, bush, pumpkin, tomato);
+        centralPlotGroup.add(slotGroup);
+
+        const slot = {
+          col,
+          row,
+          x,
+          z,
+          group: slotGroup,
+          moundMat,
+          sprout,
+          bush,
+          pumpkin,
+          tomato,
+          stage: 'empty', // 'empty' | 'sprout' | 'bush' | 'mature'
+          cropType: 'pumpkin',
+          watered: false,
+          growth: 0
+        };
+        cropSlots.push(slot);
+      }
+    }
+
+    function updateSlotVisual(slot) {
+      slot.moundMat.color.setHex(slot.watered ? 0x422411 : 0x6b3e21);
+      slot.sprout.visible = slot.stage === 'sprout';
+      slot.bush.visible = slot.stage === 'bush';
+      slot.pumpkin.visible = slot.stage === 'mature' && slot.cropType === 'pumpkin';
+      slot.tomato.visible = slot.stage === 'mature' && slot.cropType === 'tomato';
+    }
+
+    // Seed initial sprouts matching @Mnilax frame_05
+    const initialSprouts = [
+      [2, 0], [3, 1], [3, 2], [2, 2], [4, 2]
+    ];
+    for (const [c, r] of initialSprouts) {
+      const s = cropSlots.find((item) => item.col === c && item.row === r);
+      if (s) {
+        s.stage = 'sprout';
+        s.watered = true;
+        s.growth = 0.25;
+      }
+    }
+    cropSlots.forEach(updateSlotVisual);
+    worldGroup.add(centralPlotGroup);
+
+    // ─── Wooden Post-and-Rail Fences (around plot & along cobblestone path) ───
+    function buildFenceLine(x1, z1, x2, z2, segments) {
+      const g = new THREE.Group();
+      const woodMat = new THREE.MeshStandardMaterial({ color: 0x9b6235, roughness: 0.85 });
+      const dx = (x2 - x1) / segments;
+      const dz = (z2 - z1) / segments;
+      const len = Math.hypot(x2 - x1, z2 - z1);
+      const ang = Math.atan2(x2 - x1, z2 - z1);
+
+      for (let i = 0; i <= segments; i++) {
+        const post = new THREE.Mesh(new THREE.BoxGeometry(0.13, 0.52, 0.13), woodMat);
+        post.position.set(x1 + dx * i, 0.26, z1 + dz * i);
+        post.castShadow = true;
+        g.add(post);
+      }
+      for (const ry of [0.20, 0.38]) {
+        const rail = new THREE.Mesh(new THREE.BoxGeometry(0.07, 0.07, len), woodMat);
+        rail.position.set((x1 + x2) * 0.5, ry, (z1 + z2) * 0.5);
+        rail.rotation.y = ang;
+        rail.castShadow = true;
+        g.add(rail);
+      }
+      worldGroup.add(g);
+    }
+    buildFenceLine(-4.9, -1.6, -4.9, 4.4, 7);   // West plot fence
+    buildFenceLine(-4.9, 4.4, 3.7, 4.4, 8);     // South plot fence
+    buildFenceLine(2.6, -3.8, 4.2, -1.2, 4);    // Diagonal path fence with barrels/lanterns
+
+    // ─── Landmark Anchor Groups (populated immediately + upgraded with Tripo GLBs) ─
+    const barnAnchor = new THREE.Group();
+    barnAnchor.position.set(-3.3, 0, -5.8);
+    worldGroup.add(barnAnchor);
+
+    const windmillAnchor = new THREE.Group();
+    windmillAnchor.position.set(3.2, 0, -5.6);
+    worldGroup.add(windmillAnchor);
+
+    // Continuously spinning 4-blade windmill rotor
+    const windmillRotor = new THREE.Group();
+    windmillRotor.position.set(0, 3.85, 1.15);
+    const bladeWoodMat = new THREE.MeshStandardMaterial({ color: 0xb57842, roughness: 0.78 });
+    const hubMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.24, 0.35, 12), bladeWoodMat);
+    hubMesh.rotation.x = Math.PI / 2;
+    windmillRotor.add(hubMesh);
+    for (let i = 0; i < 4; i++) {
+      const sailGroup = new THREE.Group();
+      sailGroup.rotation.z = (i * Math.PI) / 2 + 0.55;
+      const spar = new THREE.Mesh(new THREE.BoxGeometry(0.12, 2.55, 0.08), bladeWoodMat);
+      spar.position.y = 1.3;
+      const lattice = new THREE.Mesh(
+        new THREE.BoxGeometry(0.46, 2.15, 0.04),
+        new THREE.MeshStandardMaterial({ color: 0xd9a166, roughness: 0.82 })
+      );
+      lattice.position.set(0.14, 1.4, 0);
+      sailGroup.add(spar, lattice);
+      windmillRotor.add(sailGroup);
+    }
+    windmillAnchor.add(windmillRotor);
+
+    // 3 Striped Market Stalls along the Eastern Cobblestone Plaza
+    const marketStallAnchors = [];
+    const stallCoords = [
+      [5.5, -3.8, 0.18],
+      [7.8, -3.3, 0.18],
+      [10.1, -2.8, 0.18]
+    ];
+    for (const [sx, sz, rotY] of stallCoords) {
+      const anchor = new THREE.Group();
+      anchor.position.set(sx, 0, sz);
+      anchor.rotation.y = rotY;
+      worldGroup.add(anchor);
+      marketStallAnchors.push(anchor);
+    }
+
+    // Arched Wooden Bridge (East water channel, frame_14)
+    const bridgeAnchor = new THREE.Group();
+    bridgeAnchor.position.set(8.8, 0.0, -0.2);
+    bridgeAnchor.rotation.y = -0.28;
+    worldGroup.add(bridgeAnchor);
+
+    // Broadleaf & Apple Trees (North background + South foreground with red apples)
+    const treeAnchors = [];
+    const treeCoords = [
+      [-0.3, -6.9, false], [5.8, -6.5, false],
+      [-5.2, 6.2, true], [-1.8, 6.6, true], [4.2, 6.1, true]
+    ];
+    for (const [tx, tz, hasApples] of treeCoords) {
+      const tAnchor = new THREE.Group();
+      tAnchor.position.set(tx, 0, tz);
+      tAnchor.userData.hasApples = hasApples;
+      worldGroup.add(tAnchor);
+      treeAnchors.push(tAnchor);
+    }
+
+    // Shepherd's-Crook Street Lanterns + Warm Point Lights
+    const lanternAnchors = [];
+    const lanternLights = [];
+    const lanternBulbs = [];
+    const lanternCoords = [
+      [3.2, -2.5], [3.9, -1.4], [4.5, 0.1],
+      [6.6, -3.6], [9.0, -3.1]
+    ];
+    for (const [lx, lz] of lanternCoords) {
+      const lAnchor = new THREE.Group();
+      lAnchor.position.set(lx, 0, lz);
+      worldGroup.add(lAnchor);
+      lanternAnchors.push(lAnchor);
+
+      const bulbMat = new THREE.MeshBasicMaterial({ color: 0xffdf7a });
+      const bulb = new THREE.Mesh(new THREE.SphereGeometry(0.14, 10, 10), bulbMat);
+      bulb.position.set(0, 1.55, 0.22);
+      lAnchor.add(bulb);
+      lanternBulbs.push(bulbMat);
+
+      const pt = new THREE.PointLight(0xffa947, 0.8, 6.8, 1.6);
+      pt.position.set(0, 1.55, 0.25);
+      lAnchor.add(pt);
+      lanternLights.push(pt);
+    }
+
+    // ─── Farmer Player Character + Watering Can + Droplet Spray ───────────────
+    const farmerGroup = new THREE.Group();
+    farmerGroup.position.set(-0.6, 0, 0.15);
+    worldGroup.add(farmerGroup);
+
+    const farmerVisualHolder = new THREE.Group();
+    farmerGroup.add(farmerVisualHolder);
+
+    const wateringCanAnchor = new THREE.Group();
+    wateringCanAnchor.position.set(0.34, 0.46, 0.36);
+    farmerVisualHolder.add(wateringCanAnchor);
+
+    // Water droplet spray particles
+    const sprayParticles = [];
+    const dropGeo = new THREE.SphereGeometry(0.045, 6, 6);
+    const dropMat = new THREE.MeshBasicMaterial({ color: 0xdff8ff, transparent: true, opacity: 0.9 });
+    const sprayGroup = new THREE.Group();
+    scene.add(sprayGroup);
+    for (let i = 0; i < 22; i++) {
+      const p = new THREE.Mesh(dropGeo, dropMat);
+      p.visible = false;
+      sprayGroup.add(p);
+      sprayParticles.push({ mesh: p, vel: new THREE.Vector3(), life: 0 });
+    }
+
+    function triggerWaterSpray(originWorld) {
+      const forward = new THREE.Vector3(0, 0, 1).applyQuaternion(farmerGroup.quaternion);
+      for (const sp of sprayParticles) {
+        sp.life = 0.25 + Math.random() * 0.35;
+        sp.mesh.visible = true;
+        sp.mesh.position.copy(originWorld).addScaledVector(forward, 0.45).add(new THREE.Vector3(0, 0.52, 0));
+        sp.vel.set(
+          forward.x * (1.2 + Math.random() * 0.9) + (Math.random() - 0.5) * 0.8,
+          0.6 + Math.random() * 0.7,
+          forward.z * (1.2 + Math.random() * 0.9) + (Math.random() - 0.5) * 0.8
+        );
+      }
+    }
+
+    // ─── Load Normalized Tripo 3D GLB Models into Scene Anchors ───────────────
+    const gltfLoader = new GLTFLoader();
+
+    function fitModelToHeight(rootObj, targetHeight) {
+      const box = new THREE.Box3().setFromObject(rootObj);
+      const size = new THREE.Vector3();
+      box.getSize(size);
+      if (size.y > 0.001) {
+        const scale = targetHeight / size.y;
+        rootObj.scale.multiplyScalar(scale);
+      }
+      const box2 = new THREE.Box3().setFromObject(rootObj);
+      const center = new THREE.Vector3();
+      box2.getCenter(center);
+      rootObj.position.x -= center.x;
+      rootObj.position.z -= center.z;
+      rootObj.position.y -= box2.min.y;
+      rootObj.traverse((node) => {
+        if (node.isMesh) {
+          node.castShadow = true;
+          node.receiveShadow = true;
+        }
+      });
+    }
+
+    async function loadTripoGlb(name, targetHeight) {
+      const candidates = [
+        `/public/assets/models/${name}.glb`,
+        `/TripoSource/${name}/${name}.glb`
+      ];
+      for (const url of candidates) {
+        try {
+          const gltf = await gltfLoader.loadAsync(url);
+          fitModelToHeight(gltf.scene, targetHeight);
+          state.loadedTripoModels++;
+          const stEl = document.getElementById('tripo-status');
+          if (stEl) stEl.textContent = `Tripo 3D Models Loaded: ${state.loadedTripoModels}/10`;
+          return gltf.scene;
+        } catch (err) {
+          console.error(`GLB_LOAD_ERR [${name}] (${url}):`, err && err.message ? err.message : String(err));
+        }
+      }
+      return null;
+    }
+
+    async function hydrateAllTripoAssets() {
+      const [
+        farmerModel,
+        barnModel,
+        windmillModel,
+        stallModel,
+        bridgeModel,
+        pumpkinModel,
+        tomatoModel,
+        treeModel,
+        lanternModel,
+        canModel
+      ] = await Promise.all([
+        loadTripoGlb('farmer', 1.55),
+        loadTripoGlb('barn', 5.4),
+        loadTripoGlb('windmill', 6.4),
+        loadTripoGlb('market_stall', 3.1),
+        loadTripoGlb('wooden_bridge', 2.1),
+        loadTripoGlb('crop_pumpkin', 0.54),
+        loadTripoGlb('crop_tomato', 0.80),
+        loadTripoGlb('apple_tree', 3.1),
+        loadTripoGlb('street_lantern', 2.2),
+        loadTripoGlb('watering_can', 0.42)
+      ]);
+
+      if (farmerModel) {
+        farmerModel.traverse((node) => {
+          if (node.isBone || node.name) {
+            if (node.name === 'tripo::0_Left_Limb_0' || node.name === 'tripo::0_Left_Limb_1') {
+              node.rotation.z = -0.55;
+              node.rotation.x = 0.25;
+            }
+            if (node.name === 'tripo::0_Right_Limb_0' || node.name === 'tripo::0_Right_Limb_1') {
+              node.rotation.z = 0.55;
+              node.rotation.x = 0.25;
+            }
+          }
+        });
+        farmerVisualHolder.add(farmerModel);
+      }
+      if (canModel) {
+        wateringCanAnchor.add(canModel);
+      }
+      if (barnModel) {
+        barnAnchor.add(barnModel);
+      }
+      if (windmillModel) {
+        windmillAnchor.add(windmillModel);
+      }
+      if (stallModel) {
+        for (const anchor of marketStallAnchors) {
+          anchor.add(SkeletonUtils.clone(stallModel));
+        }
+      }
+      if (bridgeModel) {
+        bridgeAnchor.add(bridgeModel);
+      }
+      if (treeModel) {
+        for (const anchor of treeAnchors) {
+          const clone = SkeletonUtils.clone(treeModel);
+          anchor.add(clone);
+          // Add extra bright red hanging apples on foreground trees (frame_14)
+          if (anchor.userData.hasApples) {
+            const appleMat = new THREE.MeshStandardMaterial({ color: 0xd92323, roughness: 0.35 });
+            for (const [ax, ay, az] of [[-0.7, 2.1, 0.85], [0.55, 2.3, 0.9], [-0.2, 1.5, 1.05], [0.8, 1.6, 0.75]]) {
+              const ap = new THREE.Mesh(new THREE.SphereGeometry(0.18, 10, 10), appleMat);
+              ap.position.set(ax, ay, az);
+              anchor.add(ap);
+            }
+          }
+        }
+      }
+      if (lanternModel) {
+        for (const anchor of lanternAnchors) {
+          anchor.add(SkeletonUtils.clone(lanternModel));
+        }
+      }
+      if (pumpkinModel) {
+        for (let i = 0; i < northPumpkins.length; i++) {
+          const old = northPumpkins[i];
+          const clone = SkeletonUtils.clone(pumpkinModel);
+          clone.position.copy(old.position);
+          old.parent.add(clone);
+          old.visible = false;
+        }
+        for (const slot of cropSlots) {
+          const clone = SkeletonUtils.clone(pumpkinModel);
+          slot.group.remove(slot.pumpkin);
+          slot.pumpkin = clone;
+          slot.group.add(clone);
+          updateSlotVisual(slot);
+        }
+      }
+      if (tomatoModel) {
+        for (let i = 0; i < northTomatoes.length; i++) {
+          const old = northTomatoes[i];
+          const clone = SkeletonUtils.clone(tomatoModel);
+          clone.position.copy(old.position);
+          old.parent.add(clone);
+          old.visible = false;
+        }
+        for (const slot of cropSlots) {
+          const clone = SkeletonUtils.clone(tomatoModel);
+          slot.group.remove(slot.tomato);
+          slot.tomato = clone;
+          slot.group.add(clone);
+          updateSlotVisual(slot);
+        }
+      }
+    }
+
+    // ─── HUD & Floating FX Helpers ────────────────────────────────────────────
+    const fxLayer = document.getElementById('fx-layer');
+    function spawnFloatingToast(worldPos, text, color = '#fff7cf') {
+      const v = worldPos.clone().project(camera);
+      const x = (v.x * 0.5 + 0.5) * window.innerWidth;
+      const y = (-v.y * 0.5 + 0.5) * window.innerHeight;
+      const el = document.createElement('div');
+      el.className = 'floating-toast';
+      el.style.left = `${x}px`;
+      el.style.top = `${y}px`;
+      el.style.color = color;
+      el.textContent = text;
+      fxLayer.appendChild(el);
+      setTimeout(() => el.remove(), 1150);
+    }
+
+    function refreshHud() {
+      document.getElementById('coin-value').textContent = state.coins.toLocaleString();
+      const seasonName = SEASONS[state.seasonIndex];
+      document.getElementById('season-text').textContent = `Day ${state.day} · ${seasonName}`;
+      document.getElementById('season-icon').textContent = state.timeOfDay < 0.65 ? '☀️' : '🌙';
+
+      document.getElementById('badge-0').textContent = String(state.inventory.wateringCan);
+      document.getElementById('badge-1').textContent = String(state.inventory.pumpkins);
+      document.getElementById('badge-2').textContent = String(state.inventory.pumpkinSeeds);
+      const b3 = document.getElementById('badge-3');
+      if (state.inventory.tomatoes > 0) {
+        b3.style.display = 'flex';
+        b3.textContent = String(state.inventory.tomatoes);
+      } else {
+        b3.style.display = 'none';
+      }
+
+      document.querySelectorAll('.hotbar-slot').forEach((el, idx) => {
+        el.classList.toggle('active', idx === state.selectedSlot);
+      });
+    }
+
+    // ─── Circular Minimap Renderer ────────────────────────────────────────────
+    const mapCanvas = document.getElementById('minimap-canvas');
+    const mapCtx = mapCanvas.getContext('2d');
+
+    function drawMinimap() {
+      const w = mapCanvas.width;
+      const h = mapCanvas.height;
+      mapCtx.clearRect(0, 0, w, h);
+
+      // Grass background
+      mapCtx.fillStyle = '#7eb056';
+      mapCtx.fillRect(0, 0, w, h);
+
+      // Sandy rim & cobblestone path curves
+      mapCtx.strokeStyle = '#c8ba9c';
+      mapCtx.lineWidth = 14;
+      mapCtx.beginPath();
+      mapCtx.moveTo(25, 130);
+      mapCtx.quadraticCurveTo(68, 72, 135, 42);
+      mapCtx.stroke();
+
+      // Tilled soil patch on minimap
+      mapCtx.fillStyle = '#6d4b31';
+      mapCtx.fillRect(52, 62, 42, 34);
+
+      function toMap(wx, wz) {
+        const mx = ((wx + 11) / 22) * w;
+        const mz = ((wz + 9) / 18) * h;
+        return [mx, mz];
+      }
+
+      function drawBadge(wx, wz, bg, text) {
+        const [mx, mz] = toMap(wx, wz);
+        mapCtx.fillStyle = bg;
+        mapCtx.beginPath();
+        mapCtx.arc(mx, mz, 8, 0, Math.PI * 2);
+        mapCtx.fill();
+        mapCtx.strokeStyle = '#472810';
+        mapCtx.lineWidth = 1.8;
+        mapCtx.stroke();
+        mapCtx.fillStyle = '#fff';
+        mapCtx.font = 'bold 9px sans-serif';
+        mapCtx.textAlign = 'center';
+        mapCtx.textBaseline = 'middle';
+        mapCtx.fillText(text, mx, mz);
+      }
+
+      drawBadge(-3.3, -5.4, '#d9534f', '🏠');
+      drawBadge(3.2, -5.2, '#f0ad4e', '🌾');
+      drawBadge(7.2, -3.2, '#f7c244', '🎪');
+
+      // Farmer green/white dot
+      const [fx, fz] = toMap(farmerGroup.position.x, farmerGroup.position.z);
+      mapCtx.fillStyle = '#eef8d4';
+      mapCtx.beginPath();
+      mapCtx.arc(fx, fz, 5.5, 0, Math.PI * 2);
+      mapCtx.fill();
+      mapCtx.strokeStyle = '#2d5718';
+      mapCtx.lineWidth = 2;
+      mapCtx.stroke();
+    }
+
+    // ─── Input & Interaction Binding ──────────────────────────────────────────
+    const keys = {};
+    window.addEventListener('keydown', (e) => {
+      keys[e.code] = true;
+      if (e.code.startsWith('Digit')) {
+        const n = Number(e.code.replace('Digit', '')) - 1;
+        if (n >= 0 && n < 6) {
+          state.selectedSlot = n;
+          refreshHud();
+        }
+      }
+      if (e.code === 'Space' || e.code === 'KeyE') {
+        interactWithNearestSlot();
+      }
+    });
+    window.addEventListener('keyup', (e) => { keys[e.code] = false; });
+
+    document.querySelectorAll('.hotbar-slot').forEach((el) => {
+      el.addEventListener('click', () => {
+        state.selectedSlot = Number(el.dataset.slot);
+        refreshHud();
+      });
+    });
+
+    document.getElementById('season-plaque').addEventListener('click', () => {
+      state.day++;
+      if (state.day > 15) {
+        state.day = 1;
+        state.seasonIndex = (state.seasonIndex + 1) % 4;
+      }
+      refreshHud();
+    });
+
+    document.getElementById('btn-season').addEventListener('click', () => {
+      state.seasonIndex = (state.seasonIndex + 1) % 4;
+      refreshHud();
+    });
+
+    document.getElementById('btn-lighting').addEventListener('click', (e) => {
+      const modes = ['auto', 'midday', 'sunset', 'dusk'];
+      const next = modes[(modes.indexOf(state.lightingMode) + 1) % modes.length];
+      state.lightingMode = next;
+      if (next === 'midday') state.timeOfDay = 0.20;
+      if (next === 'sunset') state.timeOfDay = 0.58;
+      if (next === 'dusk') state.timeOfDay = 0.78;
+      e.target.textContent = `Lighting: ${next.toUpperCase()}`;
+      refreshHud();
+    });
+
+    const autoBtn = document.getElementById('autopilot-btn');
+    autoBtn.addEventListener('click', () => {
+      state.autopilot = !state.autopilot;
+      autoBtn.classList.toggle('active', state.autopilot);
+    });
+
+    // Click on ground/furrow to walk and interact
+    const raycaster = new THREE.Raycaster();
+    const pointer = new THREE.Vector2();
+    let clickTarget = null;
+
+    canvas.addEventListener('pointerdown', (e) => {
+      pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
+      pointer.y = -(e.clientY / window.innerHeight) * 2 + 1;
+      raycaster.setFromCamera(pointer, camera);
+      const hits = raycaster.intersectObjects([grassMesh, centralPad, plazaBase], false);
+      if (hits.length > 0) {
+        clickTarget = hits[0].point.clone();
+        clickTarget.y = 0;
+      }
+    });
+
+    function interactWithSlot(slot) {
+      if (!slot) return false;
+      if (slot.stage === 'mature') {
+        if (slot.cropType === 'pumpkin') state.inventory.pumpkins++;
+        else state.inventory.tomatoes++;
+        slot.stage = 'empty';
+        slot.watered = false;
+        slot.growth = 0;
+        state.stats.harvested++;
+        updateSlotVisual(slot);
+        spawnFloatingToast(slot.group.position, slot.cropType === 'pumpkin' ? '+1 Pumpkin 🎃' : '+1 Tomato 🍅', '#ffe378');
+        refreshHud();
+        return true;
+      }
+      if (slot.stage === 'empty' || !slot.watered) {
+        slot.cropType = (slot.col % 2 === 0) ? 'pumpkin' : 'tomato';
+        slot.stage = 'sprout';
+        slot.watered = true;
+        slot.growth = 0.22;
+        state.stats.planted++;
+        state.stats.watered++;
+        updateSlotVisual(slot);
+        triggerWaterSpray(farmerGroup.position);
+        refreshHud();
+        return true;
+      }
+      return false;
+    }
+
+    function interactWithNearestSlot() {
+      let best = null;
+      let bestDist = 1.65;
+      for (const s of cropSlots) {
+        const d = Math.hypot(s.x - farmerGroup.position.x, s.z - farmerGroup.position.z);
+        if (d < bestDist) {
+          bestDist = d;
+          best = s;
+        }
+      }
+      if (best) interactWithSlot(best);
+    }
+
+    // ─── Autopilot AI & Main Simulation Loop ──────────────────────────────────
+    let autopilotCooldown = 0.4;
+    let walkPhase = 0;
+    const marketTarget = new THREE.Vector3(5.6, 0, -2.5);
+
+    function updateLighting(dt) {
+      if (state.lightingMode === 'auto') {
+        state.timeOfDay = (state.timeOfDay + dt * 0.022) % 1.0;
+      }
+      const t = state.timeOfDay;
+      const sunsetMix = THREE.MathUtils.smoothstep(t, 0.35, 0.72);
+      const duskMix = THREE.MathUtils.smoothstep(t, 0.48, 0.80);
+
+      const skyMidday = new THREE.Color(0x8be2ef);
+      const skySunset = new THREE.Color(0xeb9e7f);
+      const skyColor = skyMidday.lerp(skySunset, sunsetMix);
+      scene.background.copy(skyColor);
+      scene.fog.color.copy(skyColor);
+
+      const sunMidday = new THREE.Color(0xfff6e0);
+      const sunSunset = new THREE.Color(0xff9f59);
+      sunLight.color.copy(sunMidday.lerp(sunSunset, sunsetMix));
+      sunLight.intensity = THREE.MathUtils.lerp(1.95, 1.25, duskMix);
+      sunLight.position.set(
+        THREE.MathUtils.lerp(-11, -18, sunsetMix),
+        THREE.MathUtils.lerp(19, 9.5, sunsetMix),
+        11
+      );
+
+      // Seasonal grass palette
+      const seasonGrassHex = [0x8cc63f, 0x7cb832, 0xb8a638, 0xb8d4be][state.seasonIndex];
+      const baseGrass = new THREE.Color(seasonGrassHex);
+      const warmGrass = baseGrass.clone().multiply(new THREE.Color(0xf5c9a6));
+      grassMat.color.copy(baseGrass.lerp(warmGrass, sunsetMix * 0.55));
+
+      const waterMidday = new THREE.Color(0x4ccbd6);
+      const waterSunset = new THREE.Color(0xb87e88);
+      oceanMat.color.copy(waterMidday.lerp(waterSunset, sunsetMix));
+
+      // Warm glowing street lanterns at sunset/dusk (frame_05..frame_14)
+      const lanternInt = THREE.MathUtils.lerp(0.35, 3.8, duskMix);
+      for (const l of lanternLights) l.intensity = lanternInt;
+      for (const b of lanternBulbs) {
+        b.color.setHex(duskMix > 0.3 ? 0xffe484 : 0xf5d782);
+      }
+    }
+
+    let lastTime = performance.now();
+    function animate(now) {
+      requestAnimationFrame(animate);
+      const dt = Math.min((now - lastTime) / 1000, 0.1);
+      lastTime = now;
+
+      // 1. Rotate windmill sails continuously
+      windmillRotor.rotation.z -= dt * 0.72;
+
+      // 2. Gentle ocean foam breathing
+      const wave = 1 + Math.sin(now * 0.0025) * 0.014;
+      foamMesh.scale.set(1.18 * wave, 1, 0.92 * wave);
+
+      // 3. Crop growth timers
+      for (const slot of cropSlots) {
+        if (slot.watered && slot.stage !== 'empty' && slot.stage !== 'mature') {
+          slot.growth += dt * 0.11;
+          if (slot.growth >= 1.0) {
+            slot.growth = 1.0;
+            slot.stage = 'mature';
+            updateSlotVisual(slot);
+          } else if (slot.growth >= 0.56 && slot.stage !== 'bush') {
+            slot.stage = 'bush';
+            updateSlotVisual(slot);
+          }
+        }
+      }
+
+      // 4. Player / Autopilot movement
+      let moveVec = new THREE.Vector3();
+      if (keys['KeyW'] || keys['ArrowUp']) moveVec.z -= 1;
+      if (keys['KeyS'] || keys['ArrowDown']) moveVec.z += 1;
+      if (keys['KeyA'] || keys['ArrowLeft']) moveVec.x -= 1;
+      if (keys['KeyD'] || keys['ArrowRight']) moveVec.x += 1;
+
+      if (moveVec.lengthSq() > 0) {
+        clickTarget = null;
+        moveVec.normalize();
+      } else if (clickTarget) {
+        const toClick = clickTarget.clone().sub(farmerGroup.position);
+        toClick.y = 0;
+        if (toClick.length() > 0.18) {
+          moveVec.copy(toClick.normalize());
+        } else {
+          interactWithNearestSlot();
+          clickTarget = null;
+        }
+      } else if (state.autopilot) {
+        autopilotCooldown -= dt;
+        const totalHarvested = state.inventory.pumpkins + state.inventory.tomatoes;
+        let desiredSpot = null;
+        let targetSlot = null;
+
+        if (totalHarvested >= 7) {
+          desiredSpot = marketTarget;
+        } else {
+          targetSlot = cropSlots.find((s) => s.stage === 'mature')
+                    || cropSlots.find((s) => !s.watered || s.stage === 'empty');
+          if (targetSlot) {
+            desiredSpot = new THREE.Vector3(targetSlot.x, 0, targetSlot.z);
+          }
+        }
+
+        if (desiredSpot) {
+          const delta = desiredSpot.clone().sub(farmerGroup.position);
+          delta.y = 0;
+          if (delta.length() > 0.28) {
+            moveVec.copy(delta.normalize());
+          } else if (autopilotCooldown <= 0) {
+            if (totalHarvested >= 7 && desiredSpot === marketTarget) {
+              const earned = state.inventory.pumpkins * 45 + state.inventory.tomatoes * 30;
+              state.inventory.pumpkins = 3;
+              state.inventory.tomatoes = 0;
+              state.coins += earned;
+              state.stats.sold += 4;
+              const plaque = document.getElementById('coin-plaque');
+              plaque.classList.add('pulse');
+              setTimeout(() => plaque.classList.remove('pulse'), 450);
+              spawnFloatingToast(farmerGroup.position, `+¥${earned} Sold!`, '#ffd94a');
+              refreshHud();
+              autopilotCooldown = 0.75;
+            } else if (targetSlot) {
+              interactWithSlot(targetSlot);
+              autopilotCooldown = 0.45;
+            }
+          }
+        }
+      }
+
+      if (moveVec.lengthSq() > 0.001) {
+        farmerGroup.position.addScaledVector(moveVec, 2.85 * dt);
+        const targetYaw = Math.atan2(moveVec.x, moveVec.z);
+        const targetQuat = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), targetYaw);
+        farmerGroup.quaternion.slerp(targetQuat, 10 * dt);
+
+        walkPhase += dt * 11;
+        farmerVisualHolder.position.y = Math.abs(Math.sin(walkPhase)) * 0.07;
+        farmerVisualHolder.rotation.z = Math.sin(walkPhase) * 0.07;
+      } else {
+        farmerVisualHolder.position.y = THREE.MathUtils.lerp(farmerVisualHolder.position.y, 0, 10 * dt);
+        farmerVisualHolder.rotation.z = THREE.MathUtils.lerp(farmerVisualHolder.rotation.z, 0, 10 * dt);
+      }
+
+      // 5. Water spray particle physics
+      for (const sp of sprayParticles) {
+        if (sp.life > 0) {
+          sp.life -= dt;
+          sp.mesh.position.addScaledVector(sp.vel, dt);
+          sp.vel.y -= 3.5 * dt;
+          if (sp.life <= 0) sp.mesh.visible = false;
+        }
+      }
+
+      // 6. Smooth diorama camera follow (frames Barn, Windmill, Market Stalls & 7-Furrow Plot)
+      const desiredFocus = new THREE.Vector3(
+        THREE.MathUtils.clamp(farmerGroup.position.x * 0.42, -1.2, 2.6),
+        0.2,
+        THREE.MathUtils.clamp(farmerGroup.position.z * 0.35, -0.8, 1.2)
+      );
+      camFocus.lerp(desiredFocus, 4.5 * dt);
+      camera.position.copy(camFocus).add(camOffset);
+      camera.lookAt(camFocus);
+
+      updateLighting(dt);
+      drawMinimap();
+      renderer.render(scene, camera);
+    }
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    window.__cozyFarmControls = {
+      setStage(mode) {
+        if (mode === 'midday') {
+          state.lightingMode = 'midday';
+          state.timeOfDay = 0.20;
+          farmerGroup.position.set(-0.6, 0, 0.2);
+          camFocus.set(0.2, 0.2, 0.0);
+        } else if (mode === 'sunset') {
+          state.lightingMode = 'sunset';
+          state.timeOfDay = 0.58;
+          farmerGroup.position.set(-0.1, 0, 0.85);
+          triggerWaterSpray(farmerGroup.position);
+          camFocus.set(0.4, 0.2, 0.2);
+        } else if (mode === 'dusk') {
+          state.lightingMode = 'dusk';
+          state.timeOfDay = 0.78;
+          farmerGroup.position.set(4.2, 0, -1.2);
+          camFocus.set(3.2, 0.2, -0.8);
+        } else if (mode === 'autumn') {
+          state.seasonIndex = 2;
+          state.day = 14;
+          state.lightingMode = 'sunset';
+          state.timeOfDay = 0.62;
+          state.coins = 1810;
+          state.stats.harvested += 8;
+          state.stats.sold += 8;
+          farmerGroup.position.set(1.2, 0, -0.2);
+          camFocus.set(1.1, 0.2, -0.3);
+          for (let i = 0; i < 12 && i < cropSlots.length; i++) {
+            cropSlots[i].stage = (i % 3 === 0) ? 'mature' : 'bush';
+            cropSlots[i].watered = true;
+            updateSlotVisual(cropSlots[i]);
+          }
+          spawnFloatingToast(farmerGroup.position, '+¥570 Market Harvest Sold!', '#ffd94a');
+        }
+        refreshHud();
+        updateLighting(0.016);
+        drawMinimap();
+        renderer.render(scene, camera);
+      }
+    };
+
+    refreshHud();
+    drawMinimap();
+    hydrateAllTripoAssets().finally(() => {
+      lastTime = performance.now();
+      requestAnimationFrame(animate);
+    });
+  </script>
+</body>
+</html>

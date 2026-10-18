@@ -1,0 +1,60 @@
+{
+  "name": "market_stall",
+  "prompt": "cozy wooden farmer market stall booth with red and white striped fabric awning roof and wooden display crates of fruit, stylized 3D game prop",
+  "status": "success",
+  "task_id": "bc7acdb2-baf3-402f-a723-d7818a52fa8a",
+  "source_task_id": "5df37db7-56a0-4426-ad75-5e7a74f33928",
+  "credits_consumed": 45,
+  "credits_breakdown": [
+    {
+      "task_id": "5df37db7-56a0-4426-ad75-5e7a74f33928",
+      "type": "text_to_model",
+      "credits_consumed": 40
+    },
+    {
+      "task_id": "bc7acdb2-baf3-402f-a723-d7818a52fa8a",
+      "type": "convert_model",
+      "credits_consumed": 5
+    }
+  ],
+  "fbx_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/market_stall/market_stall.fbx",
+  "glb_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/market_stall/market_stall.glb",
+  "preview_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/market_stall/market_stall_preview.png",
+  "raw_result": {
+    "task_id": "bc7acdb2-baf3-402f-a723-d7818a52fa8a",
+    "type": "convert_model",
+    "status": "success",
+    "credits_consumed": 45,
+    "output_dir": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/market_stall/tripo-out/market-stall-convert-bc7acdb2",
+    "files": [
+      "model.fbx"
+    ],
+    "model_file": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/market_stall/tripo-out/market-stall-convert-bc7acdb2/model.fbx",
+    "chain": [
+      {
+        "task_id": "bc7acdb2-baf3-402f-a723-d7818a52fa8a",
+        "type": "convert_model",
+        "status": "success",
+        "credits_consumed": 5,
+        "output_dir": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/market_stall/tripo-out/market-stall-convert-bc7acdb2",
+        "files": [
+          "model.fbx"
+        ],
+        "model_file": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/market_stall/tripo-out/market-stall-convert-bc7acdb2/model.fbx"
+      }
+    ],
+    "source_task_id": "5df37db7-56a0-4426-ad75-5e7a74f33928",
+    "credits_breakdown": [
+      {
+        "task_id": "5df37db7-56a0-4426-ad75-5e7a74f33928",
+        "type": "text_to_model",
+        "credits_consumed": 40
+      },
+      {
+        "task_id": "bc7acdb2-baf3-402f-a723-d7818a52fa8a",
+        "type": "convert_model",
+        "credits_consumed": 5
+      }
+    ]
+  }
+}

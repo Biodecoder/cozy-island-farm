@@ -1,0 +1,199 @@
+{
+  "collected_at": "2026-10-18T12:51:54.943Z",
+  "balance_before": {
+    "balance": 2000,
+    "frozen": 0
+  },
+  "balance_after": {
+    "balance": 1540,
+    "frozen": 0
+  },
+  "total_credits_consumed": 460,
+  "assets": [
+    {
+      "name": "crop_pumpkin",
+      "credits_consumed": 45,
+      "credits_breakdown": [
+        {
+          "task_id": "726d3c39-baf6-47d5-b7f1-1868f9b0d9cb",
+          "type": "text_to_model",
+          "credits_consumed": 40
+        },
+        {
+          "task_id": "17a2acdc-13ce-422c-a1df-62a75dc6ad1b",
+          "type": "convert_model",
+          "credits_consumed": 5
+        }
+      ],
+      "glb_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/crop_pumpkin/crop_pumpkin.glb",
+      "fbx_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/crop_pumpkin/crop_pumpkin.fbx",
+      "preview_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/crop_pumpkin/crop_pumpkin_preview.webp"
+    },
+    {
+      "name": "barn",
+      "credits_consumed": 45,
+      "credits_breakdown": [
+        {
+          "task_id": "94b7a549-35c2-4c23-9e85-8b47aebc7942",
+          "type": "text_to_model",
+          "credits_consumed": 40
+        },
+        {
+          "task_id": "c7b63c99-66e8-4d9f-ab82-ab431c7031ac",
+          "type": "convert_model",
+          "credits_consumed": 5
+        }
+      ],
+      "glb_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/barn/barn.glb",
+      "fbx_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/barn/barn.fbx",
+      "preview_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/barn/barn_preview.webp"
+    },
+    {
+      "name": "market_stall",
+      "credits_consumed": 45,
+      "credits_breakdown": [
+        {
+          "task_id": "5df37db7-56a0-4426-ad75-5e7a74f33928",
+          "type": "text_to_model",
+          "credits_consumed": 40
+        },
+        {
+          "task_id": "bc7acdb2-baf3-402f-a723-d7818a52fa8a",
+          "type": "convert_model",
+          "credits_consumed": 5
+        }
+      ],
+      "glb_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/market_stall/market_stall.glb",
+      "fbx_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/market_stall/market_stall.fbx",
+      "preview_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/market_stall/market_stall_preview.webp"
+    },
+    {
+      "name": "watering_can",
+      "credits_consumed": 40,
+      "credits_breakdown": [
+        {
+          "task_id": "028af63a-bf08-4e14-9d0d-d92440bd2bf5",
+          "type": "text_to_model",
+          "credits_consumed": 40
+        }
+      ],
+      "glb_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/watering_can/watering_can.glb",
+      "fbx_path": null,
+      "preview_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/watering_can/watering_can_preview.webp"
+    },
+    {
+      "name": "street_lantern",
+      "credits_consumed": 45,
+      "credits_breakdown": [
+        {
+          "task_id": "3084acec-41b4-4a54-8d25-3b297dee7152",
+          "type": "text_to_model",
+          "credits_consumed": 40
+        },
+        {
+          "task_id": "959078df-6630-4f26-a416-dd54a74a9da9",
+          "type": "convert_model",
+          "credits_consumed": 5
+        }
+      ],
+      "glb_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/street_lantern/street_lantern.glb",
+      "fbx_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/street_lantern/street_lantern.fbx",
+      "preview_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/street_lantern/street_lantern_preview.webp"
+    },
+    {
+      "name": "crop_tomato",
+      "credits_consumed": 45,
+      "credits_breakdown": [
+        {
+          "task_id": "e9e0c2de-c22b-4593-afac-89298d98c6bf",
+          "type": "text_to_model",
+          "credits_consumed": 40
+        },
+        {
+          "task_id": "bceba88a-50fc-4be2-8775-8af92c231293",
+          "type": "convert_model",
+          "credits_consumed": 5
+        }
+      ],
+      "glb_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/crop_tomato/crop_tomato.glb",
+      "fbx_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/crop_tomato/crop_tomato.fbx",
+      "preview_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/crop_tomato/crop_tomato_preview.webp"
+    },
+    {
+      "name": "apple_tree",
+      "credits_consumed": 40,
+      "credits_breakdown": [
+        {
+          "task_id": "259becb0-cfd9-4b2a-8f55-5a9c568e499e",
+          "type": "text_to_model",
+          "credits_consumed": 40
+        }
+      ],
+      "glb_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/apple_tree/apple_tree.glb",
+      "fbx_path": null,
+      "preview_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/apple_tree/apple_tree_preview.webp"
+    },
+    {
+      "name": "wooden_bridge",
+      "credits_consumed": 45,
+      "credits_breakdown": [
+        {
+          "task_id": "8dd48858-a637-453a-a232-4052cdaab481",
+          "type": "text_to_model",
+          "credits_consumed": 40
+        },
+        {
+          "task_id": "db6744e2-2276-4f50-a0f6-517ce75f91d4",
+          "type": "convert_model",
+          "credits_consumed": 5
+        }
+      ],
+      "glb_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/wooden_bridge/wooden_bridge.glb",
+      "fbx_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/wooden_bridge/wooden_bridge.fbx",
+      "preview_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/wooden_bridge/wooden_bridge_preview.webp"
+    },
+    {
+      "name": "windmill",
+      "credits_consumed": 45,
+      "credits_breakdown": [
+        {
+          "task_id": "a7d75674-c123-413b-9dfd-112125648fe5",
+          "type": "text_to_model",
+          "credits_consumed": 40
+        },
+        {
+          "task_id": "fcb84e43-43cb-4c56-8f34-229ce9236439",
+          "type": "convert_model",
+          "credits_consumed": 5
+        }
+      ],
+      "glb_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/windmill/windmill.glb",
+      "fbx_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/windmill/windmill.fbx",
+      "preview_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/windmill/windmill_preview.webp"
+    },
+    {
+      "name": "farmer",
+      "credits_consumed": 65,
+      "credits_breakdown": [
+        {
+          "task_id": "def169b6-0070-4b20-b0bc-8deaef4f72dd",
+          "type": "text_to_model",
+          "credits_consumed": 20
+        },
+        {
+          "task_id": "bc23b98d-1873-4c8a-bab4-9564a275e866",
+          "type": "animate_rig",
+          "credits_consumed": 25
+        },
+        {
+          "task_id": "32bb058a-bdea-400f-b2ab-805ed1faf18d",
+          "type": "text_to_model",
+          "credits_consumed": 20
+        }
+      ],
+      "glb_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/farmer/farmer.glb",
+      "fbx_path": null,
+      "preview_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/farmer/farmer_preview.webp"
+    }
+  ]
+}

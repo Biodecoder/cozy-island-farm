@@ -1,0 +1,33 @@
+{
+  "timestamp": "2026-10-18T13:28:03.194Z",
+  "loadedTripoModels": 10,
+  "consoleErrors": [],
+  "finalState": {
+    "coins": 1810,
+    "day": 14,
+    "seasonIndex": 2,
+    "timeOfDay": 0.62,
+    "lightingMode": "sunset",
+    "selectedSlot": 0,
+    "autopilot": true,
+    "inventory": {
+      "wateringCan": 1,
+      "pumpkins": 4,
+      "pumpkinSeeds": 3,
+      "tomatoes": 0
+    },
+    "stats": {
+      "planted": 5,
+      "watered": 5,
+      "harvested": 8,
+      "sold": 8
+    },
+    "loadedTripoModels": 10
+  },
+  "screenshots": [
+    "/Users/derya/Gemini-4/cozy-island-farm/docs/qa_screenshots/qa_01_midday_island.png",
+    "/Users/derya/Gemini-4/cozy-island-farm/docs/qa_screenshots/qa_02_sunset_watering.png",
+    "/Users/derya/Gemini-4/cozy-island-farm/docs/qa_screenshots/qa_03_dusk_market_lanterns.png",
+    "/Users/derya/Gemini-4/cozy-island-farm/docs/qa_screenshots/qa_04_autumn_harvest.png"
+  ]
+}

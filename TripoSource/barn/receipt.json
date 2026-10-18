@@ -1,0 +1,60 @@
+{
+  "name": "barn",
+  "prompt": "cozy stylized red wooden farm barn with dark grey gambrel roof, white trim, white X-braced double doors, and small roof cupola, cute 3D farm game building",
+  "status": "success",
+  "task_id": "c7b63c99-66e8-4d9f-ab82-ab431c7031ac",
+  "source_task_id": "94b7a549-35c2-4c23-9e85-8b47aebc7942",
+  "credits_consumed": 45,
+  "credits_breakdown": [
+    {
+      "task_id": "94b7a549-35c2-4c23-9e85-8b47aebc7942",
+      "type": "text_to_model",
+      "credits_consumed": 40
+    },
+    {
+      "task_id": "c7b63c99-66e8-4d9f-ab82-ab431c7031ac",
+      "type": "convert_model",
+      "credits_consumed": 5
+    }
+  ],
+  "fbx_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/barn/barn.fbx",
+  "glb_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/barn/barn.glb",
+  "preview_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/barn/barn_preview.png",
+  "raw_result": {
+    "task_id": "c7b63c99-66e8-4d9f-ab82-ab431c7031ac",
+    "type": "convert_model",
+    "status": "success",
+    "credits_consumed": 45,
+    "output_dir": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/barn/tripo-out/barn-convert-c7b63c99",
+    "files": [
+      "model.fbx"
+    ],
+    "model_file": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/barn/tripo-out/barn-convert-c7b63c99/model.fbx",
+    "chain": [
+      {
+        "task_id": "c7b63c99-66e8-4d9f-ab82-ab431c7031ac",
+        "type": "convert_model",
+        "status": "success",
+        "credits_consumed": 5,
+        "output_dir": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/barn/tripo-out/barn-convert-c7b63c99",
+        "files": [
+          "model.fbx"
+        ],
+        "model_file": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/barn/tripo-out/barn-convert-c7b63c99/model.fbx"
+      }
+    ],
+    "source_task_id": "94b7a549-35c2-4c23-9e85-8b47aebc7942",
+    "credits_breakdown": [
+      {
+        "task_id": "94b7a549-35c2-4c23-9e85-8b47aebc7942",
+        "type": "text_to_model",
+        "credits_consumed": 40
+      },
+      {
+        "task_id": "c7b63c99-66e8-4d9f-ab82-ab431c7031ac",
+        "type": "convert_model",
+        "credits_consumed": 5
+      }
+    ]
+  }
+}

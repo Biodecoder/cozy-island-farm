@@ -1,0 +1,50 @@
+{
+  "name": "crop_tomato",
+  "prompt": "stylized lush green tomato bush plant bearing ripe red-orange tomatoes, cute 3D farm game crop",
+  "status": "success",
+  "task_id": "bceba88a-50fc-4be2-8775-8af92c231293",
+  "source_task_id": "e9e0c2de-c22b-4593-afac-89298d98c6bf",
+  "credits_consumed": 45,
+  "credits_breakdown": [
+    {
+      "task_id": "e9e0c2de-c22b-4593-afac-89298d98c6bf",
+      "type": "text_to_model",
+      "credits_consumed": 40
+    },
+    {
+      "task_id": "bceba88a-50fc-4be2-8775-8af92c231293",
+      "type": "convert_model",
+      "credits_consumed": 5
+    }
+  ],
+  "fbx_path": null,
+  "glb_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/crop_tomato/crop_tomato.glb",
+  "preview_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/crop_tomato/crop_tomato_preview.png",
+  "raw_result": {
+    "task_id": "bceba88a-50fc-4be2-8775-8af92c231293",
+    "type": "convert_model",
+    "status": "success",
+    "credits_consumed": 45,
+    "chain": [
+      {
+        "task_id": "bceba88a-50fc-4be2-8775-8af92c231293",
+        "type": "convert_model",
+        "status": "success",
+        "credits_consumed": 5
+      }
+    ],
+    "source_task_id": "e9e0c2de-c22b-4593-afac-89298d98c6bf",
+    "credits_breakdown": [
+      {
+        "task_id": "e9e0c2de-c22b-4593-afac-89298d98c6bf",
+        "type": "text_to_model",
+        "credits_consumed": 40
+      },
+      {
+        "task_id": "bceba88a-50fc-4be2-8775-8af92c231293",
+        "type": "convert_model",
+        "credits_consumed": 5
+      }
+    ]
+  }
+}

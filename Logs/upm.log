@@ -1,0 +1,10 @@
+[2026-10-18T20:15:04.638Z][INFO] Command-line: /Applications/Unity/Hub/Editor/6000.6.0f1/Unity.app/Contents/Helpers/PackageManager/Server/UnityPackageManager server -s 94513 --ipc-path /tmp/Unity-Upm-94513.sock -l 2 --log-file /Users/derya/Gemini-4/cozy-island-farm/Logs/upm.log
+[2026-10-18T20:15:04.715Z][INFO] IPC server started (IPC path=/tmp/Unity-Upm-94513.sock).
+[2026-10-18T20:15:04.715Z][INFO] Hint: To connect to this UPM instance, launch Unity with the command-line parameter -upmIpcPath Upm-94513.
+[2026-10-18T20:15:09.246Z][INFO] project:list-packages <-- Request received
+params: {}
+[2026-10-18T20:15:09.515Z][INFO] project:list-packages --> 200 (270 ms)
+[2026-10-18T20:15:15.165Z][INFO] project:list-packages <-- Request received
+params: {}
+[2026-10-18T20:15:15.259Z][INFO] project:list-packages --> 200 (94 ms)
+[2026-10-18T20:15:27.557Z][INFO] Received shutdown request (SIGTERM), shutting down Unity Package Manager

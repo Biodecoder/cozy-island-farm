@@ -1,0 +1,60 @@
+{
+  "name": "windmill",
+  "prompt": "cozy stylized medieval farm windmill tower with whitewashed plaster walls, cobblestone base, dark shingled dome roof, and four wooden lattice sails, cute 3D game building",
+  "status": "success",
+  "task_id": "fcb84e43-43cb-4c56-8f34-229ce9236439",
+  "source_task_id": "a7d75674-c123-413b-9dfd-112125648fe5",
+  "credits_consumed": 45,
+  "credits_breakdown": [
+    {
+      "task_id": "a7d75674-c123-413b-9dfd-112125648fe5",
+      "type": "text_to_model",
+      "credits_consumed": 40
+    },
+    {
+      "task_id": "fcb84e43-43cb-4c56-8f34-229ce9236439",
+      "type": "convert_model",
+      "credits_consumed": 5
+    }
+  ],
+  "fbx_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/windmill/windmill.fbx",
+  "glb_path": null,
+  "preview_path": null,
+  "raw_result": {
+    "task_id": "fcb84e43-43cb-4c56-8f34-229ce9236439",
+    "type": "convert_model",
+    "status": "success",
+    "credits_consumed": 45,
+    "output_dir": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/windmill/tripo-out/windmill-convert-fcb84e43",
+    "files": [
+      "model.fbx"
+    ],
+    "model_file": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/windmill/tripo-out/windmill-convert-fcb84e43/model.fbx",
+    "chain": [
+      {
+        "task_id": "fcb84e43-43cb-4c56-8f34-229ce9236439",
+        "type": "convert_model",
+        "status": "success",
+        "credits_consumed": 5,
+        "output_dir": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/windmill/tripo-out/windmill-convert-fcb84e43",
+        "files": [
+          "model.fbx"
+        ],
+        "model_file": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/windmill/tripo-out/windmill-convert-fcb84e43/model.fbx"
+      }
+    ],
+    "source_task_id": "a7d75674-c123-413b-9dfd-112125648fe5",
+    "credits_breakdown": [
+      {
+        "task_id": "a7d75674-c123-413b-9dfd-112125648fe5",
+        "type": "text_to_model",
+        "credits_consumed": 40
+      },
+      {
+        "task_id": "fcb84e43-43cb-4c56-8f34-229ce9236439",
+        "type": "convert_model",
+        "credits_consumed": 5
+      }
+    ]
+  }
+}

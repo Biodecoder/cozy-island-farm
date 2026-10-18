@@ -1,0 +1,18 @@
+{
+    "timestamp": "2026-10-18T20:15:18.0040770Z",
+    "allChecksPassed": true,
+    "initialCoins": 1240,
+    "finalCoins": 1810,
+    "totalPlanted": 8,
+    "totalWatered": 8,
+    "totalHarvested": 8,
+    "totalSold": 15,
+    "verifiedSeasons": "Spring -> Summer -> Autumn -> Winter",
+    "bugsFound": [],
+    "milestoneLogs": [
+        "Initial state: Coins=1240, Day=12, Season=Spring",
+        "Planted and watered 8 furrow slots.",
+        "Harvested 8 mature crops.",
+        "Sold harvested crops at Market Plaza for +570G (New balance: 1810G)."
+    ]
+}

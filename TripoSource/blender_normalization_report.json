@@ -1,0 +1,194 @@
+{
+  "normalized_assets": [
+    {
+      "name": "farmer",
+      "source": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/farmer/farmer.glb",
+      "has_armature": true,
+      "polygons": 12078,
+      "bounds_min": [
+        -0.7846,
+        -0.825,
+        0.0
+      ],
+      "bounds_max": [
+        0.7846,
+        0.825,
+        1.7375
+      ],
+      "height_m": 1.7375,
+      "unity_fbx": "/Users/derya/Gemini-4/cozy-island-farm/Assets/Resources/TripoModels/farmer.fbx",
+      "web_glb": "/Users/derya/Gemini-4/cozy-island-farm/public/assets/models/farmer.glb"
+    },
+    {
+      "name": "barn",
+      "source": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/barn/barn.glb",
+      "has_armature": false,
+      "polygons": 10966,
+      "bounds_min": [
+        -2.6027,
+        -2.5699,
+        0.0
+      ],
+      "bounds_max": [
+        2.6027,
+        2.5699,
+        5.6
+      ],
+      "height_m": 5.6,
+      "unity_fbx": "/Users/derya/Gemini-4/cozy-island-farm/Assets/Resources/TripoModels/barn.fbx",
+      "web_glb": "/Users/derya/Gemini-4/cozy-island-farm/public/assets/models/barn.glb"
+    },
+    {
+      "name": "windmill",
+      "source": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/windmill/windmill.glb",
+      "has_armature": false,
+      "polygons": 10959,
+      "bounds_min": [
+        -1.9495,
+        -3.0274,
+        0.0
+      ],
+      "bounds_max": [
+        1.9495,
+        3.0274,
+        6.8
+      ],
+      "height_m": 6.8,
+      "unity_fbx": "/Users/derya/Gemini-4/cozy-island-farm/Assets/Resources/TripoModels/windmill.fbx",
+      "web_glb": "/Users/derya/Gemini-4/cozy-island-farm/public/assets/models/windmill.glb"
+    },
+    {
+      "name": "market_stall",
+      "source": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/market_stall/market_stall.glb",
+      "has_armature": false,
+      "polygons": 9400,
+      "bounds_min": [
+        -1.1366,
+        -1.3432,
+        0.0
+      ],
+      "bounds_max": [
+        1.1366,
+        1.3432,
+        3.2
+      ],
+      "height_m": 3.2,
+      "unity_fbx": "/Users/derya/Gemini-4/cozy-island-farm/Assets/Resources/TripoModels/market_stall.fbx",
+      "web_glb": "/Users/derya/Gemini-4/cozy-island-farm/public/assets/models/market_stall.glb"
+    },
+    {
+      "name": "wooden_bridge",
+      "source": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/wooden_bridge/wooden_bridge.glb",
+      "has_armature": false,
+      "polygons": 7807,
+      "bounds_min": [
+        -2.4982,
+        -1.4911,
+        0.0
+      ],
+      "bounds_max": [
+        2.4982,
+        1.4911,
+        2.2
+      ],
+      "height_m": 2.2,
+      "unity_fbx": "/Users/derya/Gemini-4/cozy-island-farm/Assets/Resources/TripoModels/wooden_bridge.fbx",
+      "web_glb": "/Users/derya/Gemini-4/cozy-island-farm/public/assets/models/wooden_bridge.glb"
+    },
+    {
+      "name": "crop_pumpkin",
+      "source": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/crop_pumpkin/crop_pumpkin.glb",
+      "has_armature": false,
+      "polygons": 3921,
+      "bounds_min": [
+        -0.3243,
+        -0.3243,
+        0.0
+      ],
+      "bounds_max": [
+        0.3243,
+        0.3243,
+        0.58
+      ],
+      "height_m": 0.58,
+      "unity_fbx": "/Users/derya/Gemini-4/cozy-island-farm/Assets/Resources/TripoModels/crop_pumpkin.fbx",
+      "web_glb": "/Users/derya/Gemini-4/cozy-island-farm/public/assets/models/crop_pumpkin.glb"
+    },
+    {
+      "name": "crop_tomato",
+      "source": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/crop_tomato/crop_tomato.glb",
+      "has_armature": false,
+      "polygons": 4933,
+      "bounds_min": [
+        -0.4267,
+        -0.437,
+        0.0
+      ],
+      "bounds_max": [
+        0.4267,
+        0.437,
+        0.85
+      ],
+      "height_m": 0.85,
+      "unity_fbx": "/Users/derya/Gemini-4/cozy-island-farm/Assets/Resources/TripoModels/crop_tomato.fbx",
+      "web_glb": "/Users/derya/Gemini-4/cozy-island-farm/public/assets/models/crop_tomato.glb"
+    },
+    {
+      "name": "apple_tree",
+      "source": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/apple_tree/apple_tree.glb",
+      "has_armature": false,
+      "polygons": 7412,
+      "bounds_min": [
+        -2.0589,
+        -1.9274,
+        0.0
+      ],
+      "bounds_max": [
+        2.0589,
+        1.9274,
+        4.2
+      ],
+      "height_m": 4.2,
+      "unity_fbx": "/Users/derya/Gemini-4/cozy-island-farm/Assets/Resources/TripoModels/apple_tree.fbx",
+      "web_glb": "/Users/derya/Gemini-4/cozy-island-farm/public/assets/models/apple_tree.glb"
+    },
+    {
+      "name": "street_lantern",
+      "source": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/street_lantern/street_lantern.glb",
+      "has_armature": false,
+      "polygons": 4849,
+      "bounds_min": [
+        -0.4157,
+        -0.519,
+        0.0
+      ],
+      "bounds_max": [
+        0.4157,
+        0.519,
+        2.4
+      ],
+      "height_m": 2.4,
+      "unity_fbx": "/Users/derya/Gemini-4/cozy-island-farm/Assets/Resources/TripoModels/street_lantern.fbx",
+      "web_glb": "/Users/derya/Gemini-4/cozy-island-farm/public/assets/models/street_lantern.glb"
+    },
+    {
+      "name": "watering_can",
+      "source": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/watering_can/watering_can.glb",
+      "has_armature": false,
+      "polygons": 2804,
+      "bounds_min": [
+        -0.1494,
+        -0.2971,
+        0.0
+      ],
+      "bounds_max": [
+        0.1494,
+        0.2971,
+        0.45
+      ],
+      "height_m": 0.45,
+      "unity_fbx": "/Users/derya/Gemini-4/cozy-island-farm/Assets/Resources/TripoModels/watering_can.fbx",
+      "web_glb": "/Users/derya/Gemini-4/cozy-island-farm/public/assets/models/watering_can.glb"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "name": "wooden_bridge",
+  "prompt": "cozy curved arched wooden footbridge with timber railings and plank deck, stylized 3D farm game prop",
+  "status": "success",
+  "task_id": "db6744e2-2276-4f50-a0f6-517ce75f91d4",
+  "source_task_id": "8dd48858-a637-453a-a232-4052cdaab481",
+  "credits_consumed": 45,
+  "credits_breakdown": [
+    {
+      "task_id": "8dd48858-a637-453a-a232-4052cdaab481",
+      "type": "text_to_model",
+      "credits_consumed": 40
+    },
+    {
+      "task_id": "db6744e2-2276-4f50-a0f6-517ce75f91d4",
+      "type": "convert_model",
+      "credits_consumed": 5
+    }
+  ],
+  "fbx_path": null,
+  "glb_path": null,
+  "preview_path": null,
+  "raw_result": {
+    "task_id": "db6744e2-2276-4f50-a0f6-517ce75f91d4",
+    "type": "convert_model",
+    "status": "success",
+    "credits_consumed": 45,
+    "chain": [
+      {
+        "task_id": "db6744e2-2276-4f50-a0f6-517ce75f91d4",
+        "type": "convert_model",
+        "status": "success",
+        "credits_consumed": 5
+      }
+    ],
+    "source_task_id": "8dd48858-a637-453a-a232-4052cdaab481",
+    "credits_breakdown": [
+      {
+        "task_id": "8dd48858-a637-453a-a232-4052cdaab481",
+        "type": "text_to_model",
+        "credits_consumed": 40
+      },
+      {
+        "task_id": "db6744e2-2276-4f50-a0f6-517ce75f91d4",
+        "type": "convert_model",
+        "credits_consumed": 5
+      }
+    ]
+  }
+}

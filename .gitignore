@@ -1,0 +1,31 @@
+# Unity generated directories
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+*.csproj
+*.sln
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# Node dependencies
+/node_modules/
+
+# Raw un-normalized Tripo downloads (normalized FBX & GLB are tracked in Assets/Resources/TripoModels and public/assets/models)
+/TripoSource/*/*.glb
+/TripoSource/*/*.fbx
+
+# Unity Editor full build log (keep Logs/autopilot_report.json tracked)
+/Logs/unity_build.log
+
+# macOS metadata
+.DS_Store

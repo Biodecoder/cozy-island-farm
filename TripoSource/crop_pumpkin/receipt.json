@@ -1,0 +1,60 @@
+{
+  "name": "crop_pumpkin",
+  "prompt": "plump stylized orange pumpkin with ribbed skin and curly green vine leaf on top, cute 3D farm game crop",
+  "status": "success",
+  "task_id": "17a2acdc-13ce-422c-a1df-62a75dc6ad1b",
+  "source_task_id": "726d3c39-baf6-47d5-b7f1-1868f9b0d9cb",
+  "credits_consumed": 45,
+  "credits_breakdown": [
+    {
+      "task_id": "726d3c39-baf6-47d5-b7f1-1868f9b0d9cb",
+      "type": "text_to_model",
+      "credits_consumed": 40
+    },
+    {
+      "task_id": "17a2acdc-13ce-422c-a1df-62a75dc6ad1b",
+      "type": "convert_model",
+      "credits_consumed": 5
+    }
+  ],
+  "fbx_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/crop_pumpkin/crop_pumpkin.fbx",
+  "glb_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/crop_pumpkin/crop_pumpkin.glb",
+  "preview_path": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/crop_pumpkin/crop_pumpkin_preview.png",
+  "raw_result": {
+    "task_id": "17a2acdc-13ce-422c-a1df-62a75dc6ad1b",
+    "type": "convert_model",
+    "status": "success",
+    "credits_consumed": 45,
+    "output_dir": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/crop_pumpkin/tripo-out/crop-pumpkin-convert-17a2acdc",
+    "files": [
+      "model.fbx"
+    ],
+    "model_file": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/crop_pumpkin/tripo-out/crop-pumpkin-convert-17a2acdc/model.fbx",
+    "chain": [
+      {
+        "task_id": "17a2acdc-13ce-422c-a1df-62a75dc6ad1b",
+        "type": "convert_model",
+        "status": "success",
+        "credits_consumed": 5,
+        "output_dir": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/crop_pumpkin/tripo-out/crop-pumpkin-convert-17a2acdc",
+        "files": [
+          "model.fbx"
+        ],
+        "model_file": "/Users/derya/Gemini-4/cozy-island-farm/TripoSource/crop_pumpkin/tripo-out/crop-pumpkin-convert-17a2acdc/model.fbx"
+      }
+    ],
+    "source_task_id": "726d3c39-baf6-47d5-b7f1-1868f9b0d9cb",
+    "credits_breakdown": [
+      {
+        "task_id": "726d3c39-baf6-47d5-b7f1-1868f9b0d9cb",
+        "type": "text_to_model",
+        "credits_consumed": 40
+      },
+      {
+        "task_id": "17a2acdc-13ce-422c-a1df-62a75dc6ad1b",
+        "type": "convert_model",
+        "credits_consumed": 5
+      }
+    ]
+  }
+}
